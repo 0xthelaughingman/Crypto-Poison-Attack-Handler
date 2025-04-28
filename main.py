@@ -140,17 +140,17 @@ def format_output_dfs(txns_input: DataFrame, poisoners: dict):
     if len(poisoners) == 0:
         return None
 
-    poison_attack_txns = pd.DataFrame(columns=['block_timestamp','block_id','tx_id','index','tx_from','tx_to','amount', 'mint', '__row_index', 'intended_address', 'score'])
+    poison_attack_txns = pd.DataFrame(columns=['block_timestamp','block_id','tx_id','index','tx_from','tx_to','amount', 'mint', '__row_index', 'real_address', 'poison_score'])
     for key, value in poisoners.items():
         df_poision_txns = txns_input[txns_input['tx_from']==key]
         temp_actual_address = [value[2]] * len(df_poision_txns['tx_id'])
         temp_score = [value[3]] * len(df_poision_txns['tx_id'])
         df_poision_txns = df_poision_txns.assign(real_address = temp_actual_address)
-        df_poision_txns = df_poision_txns.assign(score = temp_score)
+        df_poision_txns = df_poision_txns.assign(poison_score = temp_score)
         poison_attack_txns = pd.concat([poison_attack_txns,df_poision_txns])
         # print(poison_attack_txns.to_string())
 
-    victim_txns = pd.DataFrame(columns=['block_timestamp','block_id','tx_id','index','tx_from','tx_to','amount', 'mint', '__row_index', 'intended_address', 'score'])
+    victim_txns = pd.DataFrame(columns=['block_timestamp','block_id','tx_id','index','tx_from','tx_to','amount', 'mint', '__row_index', 'real_address', 'poison_score'])
 
     for key, value in poisoners.items():
         df_victim_txns = txns_input[txns_input['tx_to'] == key]
@@ -158,7 +158,7 @@ def format_output_dfs(txns_input: DataFrame, poisoners: dict):
             temp_actual_address = [value[2]] * len(df_poision_txns['tx_id'])
             temp_score = [value[3]] * len(df_poision_txns['tx_id'])
             df_victim_txns = df_victim_txns.assign(real_address=temp_actual_address)
-            df_victim_txns = df_victim_txns.assign(score=temp_score)
+            df_victim_txns = df_victim_txns.assign(poison_score=temp_score)
             victim_txns = pd.concat([victim_txns, df_victim_txns])
             # print(victim_txns.to_string())
 
