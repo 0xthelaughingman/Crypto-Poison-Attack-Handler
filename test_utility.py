@@ -168,6 +168,7 @@ def format_output_dfs(txs_input: DataFrame, poisoners: dict):
 
     return poison_attack_txs, victim_txs
 
+
 def build_json_response(attack_txs:list, victim_txs:list):
     data = {}
     if len(attack_txs) == 0:
@@ -192,8 +193,7 @@ def build_json_response(attack_txs:list, victim_txs:list):
 
 
 if __name__ == "__main__":
-
-
+    # switch this with your testcase
     wallet = "5LbwC1ewY3Sca7T8CwzX9wsjvwMAHbdRo6SCQL8j7EWc"
 
     txs = None
