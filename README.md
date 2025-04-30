@@ -23,3 +23,6 @@ A tool that detects and surfaces poison attacks that may have occurred on a give
 - Refer to:
   - https://flipsidecrypto.xyz/TheLaughingMan/solana---dust-poison-tu4UZz
   - https://fxtwitter.com/LeLaughingMan/status/1917712924379845003
+- API Dectection Minimum Poison Scores:
+  - Currently for a transaction/wallet to be tagged as a poison txn/poisoner wallet the minimum poison score threshold is `[3,1]`
+  - `[3,1]` - with `3` being the minimum matching chars from the start of the address and `1` being the min. number of chars matched from the end of the address to that of a similar receiver of a given wallet.
