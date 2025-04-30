@@ -87,16 +87,20 @@ def check_poison_score(from_address: str, receivers: dict):
     score = [0, 0]
     address_poisoned = None
     for key in receivers:
+        match = 0
         for front_len in range(5, 2, -1):  # front should match a length of 5, 4 or 3 chars minimum...
             for end_len in range(5, 0, -1):  # end should match a minimum of 1 chars...
 
-                if key[0:front_len] == from_address[0:front_len] and key[::-1][0:end_len] == from_address[::-1][
-                                                                                             0:end_len]:
+                if key[0:front_len] == from_address[0:front_len] and key[::-1][0:end_len] == from_address[::-1][0:end_len]:
                     score = [front_len, end_len]
                     address_poisoned = key
+                    match = 1
                     break
 
-    # print(score, from_address, address_poisoned)
+            if match == 1:
+                break
+
+    print(score, from_address, address_poisoned)
 
     return score, address_poisoned
 
