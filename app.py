@@ -100,7 +100,7 @@ def check_poison_score(from_address: str, receivers: dict):
             if match == 1:
                 break
 
-    print(score, from_address, address_poisoned)
+    # print(score, from_address, address_poisoned)
 
     return score, address_poisoned
 
