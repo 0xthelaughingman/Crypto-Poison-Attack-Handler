@@ -46,7 +46,8 @@ def get_transactions(wallet: str):
     from solana.core.fact_transfers
     WHERE 1=1
       AND tx_to = '{wallet}'
-    ORDER BY BLOCK_ID ASC, INDEX ASC 
+    ORDER BY BLOCK_ID ASC, INDEX ASC
+    LIMIT 100000
     """
 
     query_result_set = flipside.query(query_sql, ttl_minutes=2)
@@ -60,7 +61,7 @@ def get_transactions(wallet: str):
     # we receive the total pages from `get_query_results` given the
     # provided `page_size` (total_pages is dynamically determined by the API
     # based on the `page_size` you provide)
-    total_pages = 20
+    total_pages = 10
 
     # we'll store all the page results in `all_rows`
     all_rows = []
